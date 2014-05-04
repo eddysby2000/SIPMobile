@@ -58,6 +58,21 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		return location;
 	}
 
+	private void coordinate(CallbackContext callbackContext) {
+		Location location = getLocation();
+		if (location != null) {
+//			System.out.println("Provider " + provider + " has been selected.");
+			onLocationChanged(location);
+			Map<String, Double> map = new HashMap<String, Double>();
+			map.put("latitude", location.getLatitude());
+			map.put("longitude", location.getLongitude());
+			JSONObject json = new JSONObject(map);
+			callbackContext.success(json);
+		} else {
+			callbackContext.error("Location not available");
+		}
+	}
+
 	private void addressByCoordinate(CallbackContext callbackContext, double latitude, double longitude) {
 		Geocoder geocoder = new Geocoder(this.cordova.getActivity());
 		try {
@@ -73,7 +88,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
 				}
 //				longitudeField.setText(strReturnedAddress.toString());
-				json.put("address", strReturnedAddress);//jArray);
+				json.put("address", strReturnedAddress.toString());//jArray);
 				callbackContext.success(json);
 			}
 			else {
@@ -93,21 +108,6 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 //			System.out.println("Provider " + provider + " has been selected.");
 			onLocationChanged(location);
 			addressByCoordinate(callbackContext, location.getLatitude(), location.getLongitude());
-		} else {
-			callbackContext.error("Location not available");
-		}
-	}
-
-	private void coordinate(CallbackContext callbackContext) {
-		Location location = getLocation();
-		if (location != null) {
-//			System.out.println("Provider " + provider + " has been selected.");
-			onLocationChanged(location);
-			Map<String, Double> map = new HashMap<String, Double>();
-			map.put("latitude", location.getLatitude());
-			map.put("longitude", location.getLongitude());
-			JSONObject json = new JSONObject(map);
-			callbackContext.success(json);
 		} else {
 			callbackContext.error("Location not available");
 		}
