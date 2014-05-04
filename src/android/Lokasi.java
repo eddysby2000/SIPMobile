@@ -81,11 +81,11 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		Criteria criteria = new Criteria();
 		provider = locationManager.getBestProvider(criteria, false);
 		Location location = locationManager.getLastKnownLocation(provider);
-		boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		if (!enabled) {
-			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-			this.cordova.getActivity().startActivity(intent);
-		}
+//		boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//		if (!enabled) {
+//			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//			this.cordova.getActivity().startActivity(intent);
+//		}
 		if (location != null) {
 //			System.out.println("Provider " + provider + " has been selected.");
 			onLocationChanged(location);
