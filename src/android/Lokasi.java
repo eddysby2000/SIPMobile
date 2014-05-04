@@ -82,18 +82,18 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 			if (addresses != null) {
 				Address returnedAddress = addresses.get(0);
-				Toast.makeText(cordova.getActivity(), returnedAddress.getPostalCode(), Toast.LENGTH_LONG).show();
-//				JSONObject json = new JSONObject();
-//				json.put("postalCode", returnedAddress.getPostalCode());
-//				JSONArray jArray = new JSONArray();
+//				Toast.makeText(cordova.getActivity(), returnedAddress.getPostalCode(), Toast.LENGTH_LONG).show();
+				JSONObject json = new JSONObject();
+				json.put("postalCode", returnedAddress.getPostalCode());
+				JSONArray jArray = new JSONArray();
 				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
 				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
-//					jArray.put(returnedAddress.getAddressLine(i));
-					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+					jArray.put(returnedAddress.getAddressLine(i));
+//					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
 				}
-				Toast.makeText(cordova.getActivity(), strReturnedAddress.toString(), Toast.LENGTH_LONG).show();
-//				json.put("address", jArray);
-				callbackContext.success("xxxxxxxxxxxxxx");
+//				Toast.makeText(cordova.getActivity(), strReturnedAddress.toString(), Toast.LENGTH_LONG).show();
+				json.put("address", jArray);
+				callbackContext.success(json);
 			} else {
 				callbackContext.error("No Address returned!");
 			}
