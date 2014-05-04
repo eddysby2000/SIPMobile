@@ -56,7 +56,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 				JSONArray jArray = new JSONArray();
 //				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
 				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
-					jArray.put(i, returnedAddress.getAddressLine(i));
+					jArray.put(returnedAddress.getAddressLine(i));
 //					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
 				}
 //				longitudeField.setText(strReturnedAddress.toString());
