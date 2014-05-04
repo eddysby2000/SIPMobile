@@ -27,7 +27,7 @@ import android.widget.Toast;
 public class Lokasi extends CordovaPlugin implements LocationListener {
 	private static final String LOG_TAG = "Lokasi";
 //	private LocationManager locationManager;
-	private String provider;
+//	private String provider;
 
 	public Lokasi() {}
 
@@ -52,7 +52,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		LocationManager locationManager = null;
 		if (locationManager == null) locationManager = (LocationManager) this.cordova.getActivity().getSystemService(Context.LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
-		provider = locationManager.getBestProvider(criteria, false);
+		String provider = locationManager.getBestProvider(criteria, false);
 		Location location = locationManager.getLastKnownLocation(provider);
 //		boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 //		if (!enabled) {
@@ -87,7 +87,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 				JSONObject json = new JSONObject();
 				json.put("postalCode", returnedAddress.getPostalCode());
 				JSONArray jArray = new JSONArray();
-				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
+//				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
 				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
 					jArray.put(returnedAddress.getAddressLine(i));
 //					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
