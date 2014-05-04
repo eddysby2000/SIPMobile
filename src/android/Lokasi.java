@@ -45,6 +45,19 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		return false;
 	}
 
+	private Location getLocation() {
+		if (locationManager == null) locationManager = (LocationManager) this.cordova.getActivity().getSystemService(Context.LOCATION_SERVICE);
+		Criteria criteria = new Criteria();
+		provider = locationManager.getBestProvider(criteria, false);
+		Location location = locationManager.getLastKnownLocation(provider);
+//		boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//		if (!enabled) {
+//			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//			this.cordova.getActivity().startActivity(intent);
+//		}		
+		return location;
+	}
+
 	private void addressByCoordinate(CallbackContext callbackContext, double latitude, double longitude) {
 		Geocoder geocoder = new Geocoder(this.cordova.getActivity());
 		try {
@@ -74,18 +87,19 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		}
 	}
 
-	private void address(CallbackContext callbackContext) {}
+	private void address(CallbackContext callbackContext) {
+		Location location = getLocation();
+		if (location != null) {
+//			System.out.println("Provider " + provider + " has been selected.");
+			onLocationChanged(location);
+			addressByCoordinate(callbackContext, location.getLatitude(), location.getLongitude());
+		} else {
+			callbackContext.error("Location not available");
+		}
+	}
 
 	private void coordinate(CallbackContext callbackContext) {
-		locationManager = (LocationManager) this.cordova.getActivity().getSystemService(Context.LOCATION_SERVICE);
-		Criteria criteria = new Criteria();
-		provider = locationManager.getBestProvider(criteria, false);
-		Location location = locationManager.getLastKnownLocation(provider);
-//		boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//		if (!enabled) {
-//			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//			this.cordova.getActivity().startActivity(intent);
-//		}
+		Location location = getLocation();
 		if (location != null) {
 //			System.out.println("Provider " + provider + " has been selected.");
 			onLocationChanged(location);
