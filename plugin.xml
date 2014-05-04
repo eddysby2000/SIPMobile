@@ -4,7 +4,7 @@
         id="org.apache.cordova.sipkita"
         version="0.0.1-dev">
 
-   <name>Location</name>
+   <name>Location,BluetoothPrinter</name>
    <description>Cordova Location Plugin</description>
    <license>Apache 2.0</license>
    <keywords>cordova,GPS,location,BluetoothPrinter</keywords>
