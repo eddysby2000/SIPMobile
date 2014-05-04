@@ -3,6 +3,7 @@ package org.apache.cordova.sipkita;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
@@ -19,7 +20,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.InputFilter.LengthFilter;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Lokasi extends CordovaPlugin implements LocationListener {
 	private static final String LOG_TAG = "Lokasi";
@@ -79,14 +82,16 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 			if (addresses != null) {
 				Address returnedAddress = addresses.get(0);
+				Toast.makeText(cordova.getActivity(), returnedAddress.getPostalCode(), Toast.LENGTH_LONG).show();
 //				JSONObject json = new JSONObject();
 //				json.put("postalCode", returnedAddress.getPostalCode());
 //				JSONArray jArray = new JSONArray();
 				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
 				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
 //					jArray.put(returnedAddress.getAddressLine(i));
-//					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
 				}
+				Toast.makeText(cordova.getActivity(), strReturnedAddress.toString(), Toast.LENGTH_LONG).show();
 //				json.put("address", jArray);
 				callbackContext.success("xxxxxxxxxxxxxx");
 			} else {
