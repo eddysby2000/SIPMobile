@@ -79,21 +79,21 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 			if (addresses != null) {
 				Address returnedAddress = addresses.get(0);
-//				JSONObject json = new JSONObject();
-//				json.put("postalCode", returnedAddress.getPostalCode());
-//				JSONArray jArray = new JSONArray();
+				JSONObject json = new JSONObject();
+				json.put("postalCode", returnedAddress.getPostalCode());
+				JSONArray jArray = new JSONArray();
 				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
 				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
-//					jArray.put(returnedAddress.getAddressLine(i));
-					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+					jArray.put(returnedAddress.getAddressLine(i));
+//					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
 				}
 //				longitudeField.setText(strReturnedAddress.toString());
-//				json.put("address", strReturnedAddress.toString());//jArray);
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("postalCode", "900000");// returnedAddress.getPostalCode());
-				map.put("address", "xxxx");// strReturnedAddress.toString());
-				JSONObject json = new JSONObject(map);
-				callbackContext.success(json);
+				json.put("address", jArray);
+//				Map<String, String> map = new HashMap<String, String>();
+//				map.put("postalCode", "900000");// returnedAddress.getPostalCode());
+//				map.put("address", "xxxx");// strReturnedAddress.toString());
+//				JSONObject json = new JSONObject(map);
+				callbackContext.success(json.toString());
 			} else {
 				callbackContext.error("No Address returned!");
 			}
