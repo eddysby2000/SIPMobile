@@ -79,8 +79,8 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 			if (addresses != null) {
 				Address returnedAddress = addresses.get(0);
-				JSONObject json = new JSONObject();
-				json.put("postalCode", returnedAddress.getPostalCode());
+//				JSONObject json = new JSONObject();
+//				json.put("postalCode", returnedAddress.getPostalCode());
 //				JSONArray jArray = new JSONArray();
 				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
 				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
@@ -88,7 +88,11 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
 				}
 //				longitudeField.setText(strReturnedAddress.toString());
-				json.put("address", strReturnedAddress.toString());//jArray);
+//				json.put("address", strReturnedAddress.toString());//jArray);
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("postalCode", returnedAddress.getPostalCode());
+				map.put("address", strReturnedAddress.toString());
+				JSONObject json = new JSONObject(map);				
 				callbackContext.success(json);
 			}
 			else {
