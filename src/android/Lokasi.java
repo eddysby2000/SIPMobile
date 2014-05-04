@@ -90,12 +90,11 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 //				longitudeField.setText(strReturnedAddress.toString());
 //				json.put("address", strReturnedAddress.toString());//jArray);
 				Map<String, String> map = new HashMap<String, String>();
-				map.put("postalCode", returnedAddress.getPostalCode());
-				map.put("address", strReturnedAddress.toString());
-				JSONObject json = new JSONObject(map);				
+				map.put("postalCode", "900000");// returnedAddress.getPostalCode());
+				map.put("address", "xxxx");// strReturnedAddress.toString());
+				JSONObject json = new JSONObject(map);
 				callbackContext.success(json);
-			}
-			else {
+			} else {
 				callbackContext.error("No Address returned!");
 			}
 		} catch (Exception e) {
