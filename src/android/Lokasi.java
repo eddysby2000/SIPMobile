@@ -26,9 +26,9 @@ import android.widget.Toast;
 
 public class Lokasi extends CordovaPlugin implements LocationListener {
 	private static final String LOG_TAG = "Lokasi";
+
 //	private LocationManager locationManager;
 //	private String provider;
-
 	public Lokasi() {}
 
 	@Override
@@ -48,7 +48,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		return false;
 	}
 
-	private Location getLocation() {
+	Location getLocation() {
 		LocationManager locationManager = null;
 		if (locationManager == null) locationManager = (LocationManager) this.cordova.getActivity().getSystemService(Context.LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
@@ -62,7 +62,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		return location;
 	}
 
-	private void coordinate(CallbackContext callbackContext) {
+	void coordinate(CallbackContext callbackContext) {
 		Location location = getLocation();
 		if (location != null) {
 //			System.out.println("Provider " + provider + " has been selected.");
@@ -77,7 +77,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		}
 	}
 
-	private void addressByCoordinate(CallbackContext callbackContext, double latitude, double longitude) {
+	void addressByCoordinate(CallbackContext callbackContext, double latitude, double longitude) {
 		Geocoder geocoder = new Geocoder(this.cordova.getActivity());
 		try {
 			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -106,7 +106,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 		}
 	}
 
-	private void address(CallbackContext callbackContext) {
+	void address(CallbackContext callbackContext) {
 		Location location = getLocation();
 		if (location != null) {
 //			System.out.println("Provider " + provider + " has been selected.");
