@@ -53,14 +53,14 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 				Address returnedAddress = addresses.get(0);
 				JSONObject json = new JSONObject();
 				json.put("postalCode", returnedAddress.getPostalCode());
-				JSONArray jArray = new JSONArray();
-//				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
+//				JSONArray jArray = new JSONArray();
+				StringBuilder strReturnedAddress = new StringBuilder("Address:\n");
 				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
-					jArray.put(returnedAddress.getAddressLine(i));
-//					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+//					jArray.put(returnedAddress.getAddressLine(i));
+					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
 				}
 //				longitudeField.setText(strReturnedAddress.toString());
-				json.put("address", jArray);
+				json.put("address", strReturnedAddress);//jArray);
 				callbackContext.success(json);
 			}
 			else {
