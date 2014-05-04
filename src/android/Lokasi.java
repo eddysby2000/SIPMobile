@@ -67,7 +67,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 				callbackContext.error("No Address returned!");
 			}
 		} catch (Exception e) {
-			String errMsg = e.getMessage();
+			String errMsg = e.getClass().getSimpleName() + ":" + e.getMessage();
 			Log.e(LOG_TAG, errMsg);
 			e.printStackTrace();
 			callbackContext.error(errMsg);
