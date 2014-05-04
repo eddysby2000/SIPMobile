@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 public class Lokasi extends CordovaPlugin implements LocationListener {
 	private static final String LOG_TAG = "Lokasi";
-	private LocationManager locationManager;
+//	private LocationManager locationManager;
 	private String provider;
 
 	public Lokasi() {}
@@ -49,6 +49,7 @@ public class Lokasi extends CordovaPlugin implements LocationListener {
 	}
 
 	private Location getLocation() {
+		LocationManager locationManager = null;
 		if (locationManager == null) locationManager = (LocationManager) this.cordova.getActivity().getSystemService(Context.LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
 		provider = locationManager.getBestProvider(criteria, false);
